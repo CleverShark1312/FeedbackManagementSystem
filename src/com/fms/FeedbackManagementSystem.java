@@ -9,16 +9,39 @@ public class FeedbackManagementSystem extends JFrame {
     private JTextField emailField;
     private JTextArea feedbackArea;
     private ButtonGroup ratingButtonGroup;
-
     private JButton submitButton;
+    private JMenuBar menuBar;
 
     public FeedbackManagementSystem() {
         super("Feedback Management System");
+        createMenuBar();
         createUI();
         pack();
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                FeedbackManagementSystem feedbackManagementSystem = new FeedbackManagementSystem();
+                feedbackManagementSystem.setVisible(true);
+            }
+        });
+    }
+
+    private void createMenuBar() {
+        menuBar = new JMenuBar();
+        JMenu loginMenu = new JMenu("Login");
+        menuBar.add(loginMenu);
+        setJMenuBar(menuBar);
     }
 
     private void createUI() {
@@ -102,20 +125,5 @@ public class FeedbackManagementSystem extends JFrame {
         buttonPanel.add(submitButton);
 
         add(mainPanel);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                FeedbackManagementSystem feedbackManagementSystem = new FeedbackManagementSystem();
-                feedbackManagementSystem.setVisible(true);
-            }
-        });
     }
 }
