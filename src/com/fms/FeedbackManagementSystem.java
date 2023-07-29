@@ -20,6 +20,7 @@ public class FeedbackManagementSystem extends JFrame {
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
     public static void main(String[] args) {
@@ -42,7 +43,18 @@ public class FeedbackManagementSystem extends JFrame {
         JMenu loginMenu = new JMenu("Login");
         menuBar.add(loginMenu);
         setJMenuBar(menuBar);
+
+        // Add MouseActionListener to the login menu
+        loginMenu.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JFrame loginFrame = new JFrame("LOGIN PAGE");
+                loginFrame.setSize(500, 500);
+                loginFrame.setVisible(true);
+            }
+        });
     }
+
 
     private void createUI() {
         JPanel mainPanel = new JPanel();
@@ -126,4 +138,5 @@ public class FeedbackManagementSystem extends JFrame {
 
         add(mainPanel);
     }
+
 }
