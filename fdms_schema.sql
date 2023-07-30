@@ -1,5 +1,4 @@
---- create database feedback_system;
-SELECT database();
+create database feedback_system;
 use feedback_system;
 
 
