@@ -17,9 +17,9 @@ is_active boolean DEFAULT false NOT NULL
  CREATE TABLE user_feedbacks (
  id  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
  user_id INT NOT NULL,
- customer_name VARCHAR(20) NOT NULL,
- customer_email VARCHAR(50)NOT NULL,
- feedback_text varchar(250)NOT NULL,
+ customer_name VARCHAR(20) UNIQUE NOT NULL,
+ customer_email VARCHAR(50) UNIQUE NOT NULL,
+ feedback_text varchar(250) NOT NULL,
  is_deleted boolean NOT NULL,
  created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
  updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
