@@ -25,8 +25,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
         userTextField.setBounds(150, 150, 150, 30);
         passwordField.setBounds(150, 220, 150, 30);
         showPassword.setBounds(150, 250, 150, 30);
-        loginButton.setBounds(200, 300, 100, 30);
-      //  resetButton.setBounds(200, 300, 100, 30);
+        loginButton.setBounds(50, 300, 100, 30);
+        resetButton.setBounds(200, 300, 100, 30);
 
 
     }
@@ -42,6 +42,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 
     public void addActionEvent(){
         loginButton.addActionListener(this);
+        showPassword.addActionListener(this);
+        resetButton.addActionListener(this);
     }
 
     public  MyLoginFrame(){
@@ -54,6 +56,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        //login functionality
         if(e.getSource() == loginButton){
             String userText;
             String pswdText;
@@ -65,8 +68,21 @@ public class MyLoginFrame extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Invalid username or password");
             }
         }
+        //show password functionality
+        if(e.getSource() == showPassword){
+            if(showPassword.isSelected()){
+                passwordField.setEchoChar((char)0);
+            }else{
+                passwordField.setEchoChar('*');
+            }
+        }
 
-
+        //reset functionality
+        if(e.getSource() == resetButton){
+            userTextField.setText("");
+            passwordField.setText("");
+            showPassword.setSelected(false);
+        }
     }
 }
 
