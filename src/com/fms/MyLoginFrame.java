@@ -86,13 +86,12 @@ public class MyLoginFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //login functionality
         if (e.getSource() == loginButton) {
-            String userText;
-            String pswdText;
-            userText = userTextField.getText();
-            pswdText = passwordField.getText();
-            if (userText.equals("Harshita") && pswdText.equals("345")) {
-                JOptionPane.showMessageDialog(this, "Login Successful");
+            String emailText = userTextField.getText();
+            String pswdText = passwordField.getText();
 
+            boolean isValidUser = isValidUser(emailText, pswdText);
+            if (isValidUser) {
+                JOptionPane.showMessageDialog(this, "Login Successful");
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password");
             }
@@ -111,6 +110,11 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //            passwordField.setText("");
 //            //showPassword.setSelected(false);
 //        }
+    }
+
+    private boolean isValidUser(String email, String password) {
+        //TODO Replace hardcoded logic with actual DB check
+        return (email.equals("Harshita") && password.equals("345")) ;
     }
 
 
