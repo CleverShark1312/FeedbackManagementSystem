@@ -1,13 +1,16 @@
 package com.fms;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MyLoginFrame extends JFrame implements ActionListener {
     Container container = getContentPane();
-    JLabel userLabel ;
+    JLabel userLabel;
     JLabel passwordLabel ;
     JTextField userTextField ;
     JPasswordField passwordField ;
@@ -19,8 +22,13 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //        setLayoutManager();
 //        setLocationAndSize();
 //        addComponentsToContainer();
-        userTextField = new JTextField(20);
+       
+        userTextField = new JTextField();
+        userTextField.setColumns(35);
+        userTextField.setBorder(new EmptyBorder(15,0,15,0));
+
         passwordField = new JPasswordField(20);
+        passwordField.setBorder(new EmptyBorder(15,0,15,0));
         addActionEvent();
 
         JPanel panel = new JPanel();
