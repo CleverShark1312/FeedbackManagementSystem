@@ -1,44 +1,120 @@
 package com.fms;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MyLoginFrame extends JFrame implements ActionListener {
-    JPanel loginPanel = new JPanel();
-    JTextField textField = new JTextField(20);
-    JPasswordField pswdField = new JPasswordField(20);
+    Container container = getContentPane();
+    JLabel userLabel;
+    JLabel passwordLabel ;
+    JTextField userTextField ;
+    JPasswordField passwordField ;
     JButton loginButton = new JButton("LOGIN");
-    JLabel userName = new JLabel("Name");
-    JLabel password = new JLabel("Password");
-    JLabel success = new JLabel();
-    private void loginUi(){
-      add(loginPanel);
-
-        loginPanel.add(userName);
-        loginPanel.add(textField);
-        loginPanel.add(password);
-        loginPanel.add(pswdField);
-        loginPanel.add(loginButton);
-        loginPanel.add(success);
-        loginButton.addActionListener(this);
-    }
+   // JButton resetButton = new JButton("RESET");
+   // JCheckBox showPassword = new JCheckBox("Show Password");
     public MyLoginFrame() {
-        super("Login Page");
-        loginUi();
+        super("LOGIN PAGE");
+//        setLayoutManager();
+//        setLocationAndSize();
+//        addComponentsToContainer();
+       
+        userTextField = new JTextField();
+        userTextField.setColumns(35);
+        userTextField.setBorder(new EmptyBorder(15,0,15,0));
 
+        passwordField = new JPasswordField(20);
+        passwordField.setBorder(new EmptyBorder(15,0,15,0));
+        addActionEvent();
+
+        JPanel panel = new JPanel();
+        GridBagLayout layout = new GridBagLayout();
+
+        panel.setLayout(layout);
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        panel.add(new JLabel("USERNAME:-"),gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        panel.add(userTextField,gbc);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        panel.add(new JLabel("PASSWORD:-"),gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panel.add(passwordField,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.CENTER;
+        panel.add(loginButton,gbc);
+        add(panel, BorderLayout.CENTER);
+
+//        gbc.gridx = 3;
+//        gbc.gridy = 2;
+//        gbc.fill = GridBagConstraints.CENTER;
+//        panel.add(resetButton,gbc);
+//        add(panel, BorderLayout.CENTER);
+
+
+
+    }
+    public void setLayoutManager() {
+        container.setLayout(null);
+    }
+
+    public void addActionEvent() {
+        loginButton.addActionListener(this);
+       // showPassword.addActionListener(this);
+      //  resetButton.addActionListener(this);
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        String name = textField.getText();
-        String password = pswdField.getText();
-        System.out.println(name+" "+ password);
-        if(name.equals("Harshita")&& password.equals("345")){
-            success.setText("Login Successful!");
-        }else{
-            success.setText("Access denied");
-        }
+        //login functionality
+        if (e.getSource() == loginButton) {
+            String userText;
+            String pswdText;
+            userText = userTextField.getText();
+            pswdText = passwordField.getText();
+            if (userText.equals("Harshita") && pswdText.equals("345")) {
+                JOptionPane.showMessageDialog(this, "Login Successful");
 
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username or password");
+            }
+        }
+        //show password functionality
+//        if (e.getSource() == showPassword) {
+//            if (showPassword.isSelected()) {
+//                passwordField.setEchoChar((char) 0);
+//            } else {
+//                passwordField.setEchoChar('*');
+//
+//            }
+        //reset functionality
+//        if (e.getSource() == resetButton) {
+//            userTextField.setText("");
+//            passwordField.setText("");
+//            //showPassword.setSelected(false);
+//        }
     }
+
+
+
+
+
 }
+
