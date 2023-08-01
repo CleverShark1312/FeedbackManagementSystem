@@ -48,7 +48,7 @@ public class FeedbackManagementSystem extends JFrame {
         loginMenu.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MyLoginFrame loginFrame = new MyLoginFrame();
+                MyLoginFrame loginFrame = new MyLoginFrame(menuBar);
                 loginFrame.setSize(500, 500);
                 loginFrame.setVisible(true);
             }
