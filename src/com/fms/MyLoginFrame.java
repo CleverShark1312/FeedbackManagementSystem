@@ -5,6 +5,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+
+import static com.fms.HelloJDBC.*;
 
 public class MyLoginFrame extends JFrame implements ActionListener {
     Container container = getContentPane();
@@ -114,7 +117,16 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 
     private boolean isValidUser(String email, String password) {
         //TODO Replace hardcoded logic with actual DB check
-        return (email.equals("Harshita") && password.equals("345")) ;
+        String query = "SELECT * FROM users WHERE email = '"+email+"' AND user_password='"+password+"'";
+        System.out.println(query);
+        try {
+            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return (email.equals("Harshita") && password.equals("345"));
     }
 
 
