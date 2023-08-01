@@ -1,9 +1,7 @@
 package com.fms;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,24 +9,25 @@ import java.awt.event.ActionListener;
 public class MyLoginFrame extends JFrame implements ActionListener {
     Container container = getContentPane();
     JLabel userLabel;
-    JLabel passwordLabel ;
-    JTextField userTextField ;
-    JPasswordField passwordField ;
+    JLabel passwordLabel;
+    JTextField userTextField;
+    JPasswordField passwordField;
     JButton loginButton = new JButton("LOGIN");
-   // JButton resetButton = new JButton("RESET");
-   // JCheckBox showPassword = new JCheckBox("Show Password");
+
+    // JButton resetButton = new JButton("RESET");
+    // JCheckBox showPassword = new JCheckBox("Show Password");
     public MyLoginFrame() {
         super("LOGIN PAGE");
 //        setLayoutManager();
 //        setLocationAndSize();
 //        addComponentsToContainer();
-       
+
         userTextField = new JTextField();
         userTextField.setColumns(35);
-        userTextField.setBorder(new EmptyBorder(15,0,15,0));
+        userTextField.setBorder(new EmptyBorder(15, 0, 15, 0));
 
         passwordField = new JPasswordField(20);
-        passwordField.setBorder(new EmptyBorder(15,0,15,0));
+        passwordField.setBorder(new EmptyBorder(15, 0, 15, 0));
         addActionEvent();
 
         JPanel panel = new JPanel();
@@ -41,26 +40,26 @@ public class MyLoginFrame extends JFrame implements ActionListener {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 10, 10);
-        panel.add(new JLabel("USERNAME:-"),gbc);
+        panel.add(new JLabel("USERNAME:-"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        panel.add(userTextField,gbc);
+        panel.add(userTextField, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 0;
         gbc.gridx = 0;
         gbc.gridy = 1;
-        panel.add(new JLabel("PASSWORD:-"),gbc);
+        panel.add(new JLabel("PASSWORD:-"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        panel.add(passwordField,gbc);
+        panel.add(passwordField, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.fill = GridBagConstraints.CENTER;
-        panel.add(loginButton,gbc);
+        panel.add(loginButton, gbc);
         add(panel, BorderLayout.CENTER);
 
 //        gbc.gridx = 3;
@@ -70,17 +69,18 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //        add(panel, BorderLayout.CENTER);
 
 
-
     }
+
     public void setLayoutManager() {
         container.setLayout(null);
     }
 
     public void addActionEvent() {
         loginButton.addActionListener(this);
-       // showPassword.addActionListener(this);
-      //  resetButton.addActionListener(this);
+        // showPassword.addActionListener(this);
+        //  resetButton.addActionListener(this);
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         //login functionality
@@ -111,9 +111,6 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //            //showPassword.setSelected(false);
 //        }
     }
-
-
-
 
 
 }
