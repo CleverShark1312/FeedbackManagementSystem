@@ -74,6 +74,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //        panel.add(resetButton,gbc);
 //        add(panel, BorderLayout.CENTER);
 
+        //Enter button functionality on Login button
         passwordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -82,7 +83,6 @@ public class MyLoginFrame extends JFrame implements ActionListener {
                 }
             }
         });
-
     }
 
     public void setLayoutManager() {
@@ -120,6 +120,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password");
             }
+        } else if (e.getSource() == loginButton) {
+            performlogin();
         }
         //show password functionality
 //        if (e.getSource() == showPassword) {
@@ -135,9 +137,6 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //            passwordField.setText("");
 //            //showPassword.setSelected(false);
 //        }
-        else if (e.getSource() == loginButton) {
-            performlogin();
-        }
     }
 
     private boolean isValidUser(String email, String password) {
