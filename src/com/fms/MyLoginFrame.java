@@ -5,13 +5,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.*;
 
 import static com.fms.HelloJDBC.*;
 
-public class MyLoginFrame extends JFrame implements ActionListener, KeyListener {
+public class MyLoginFrame extends JFrame implements ActionListener {
     Container container = getContentPane();
     JLabel userLabel;
     JLabel passwordLabel;
@@ -73,7 +73,15 @@ public class MyLoginFrame extends JFrame implements ActionListener, KeyListener 
 //        gbc.fill = GridBagConstraints.CENTER;
 //        panel.add(resetButton,gbc);
 //        add(panel, BorderLayout.CENTER);
-        loginButton.addKeyListener(this);
+
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    performlogin();
+                }
+            }
+        });
 
     }
 
@@ -85,7 +93,18 @@ public class MyLoginFrame extends JFrame implements ActionListener, KeyListener 
         loginButton.addActionListener(this);
         // showPassword.addActionListener(this);
         //  resetButton.addActionListener(this);
-        loginButton.addKeyListener(this);
+    }
+
+    private void performlogin() {
+        String emailText = userTextField.getText();
+        String pswdText = passwordField.getText();
+
+        boolean isValidUser = isValidUser(emailText, pswdText);
+        if (isValidUser) {
+            JOptionPane.showMessageDialog(this, "Login Successful");
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid username or password");
+        }
     }
 
     @Override
@@ -116,11 +135,14 @@ public class MyLoginFrame extends JFrame implements ActionListener, KeyListener 
 //            passwordField.setText("");
 //            //showPassword.setSelected(false);
 //        }
+        else if (e.getSource() == loginButton) {
+            performlogin();
+        }
     }
 
     private boolean isValidUser(String email, String password) {
         //TODO Replace hardcoded logic with actual DB check
-        String query = "SELECT * FROM users WHERE email = '"+email+"' AND user_password='"+password+"'";
+        String query = "SELECT * FROM users WHERE email = '" + email + "' AND user_password='" + password + "'";
         System.out.println(query);
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -131,27 +153,5 @@ public class MyLoginFrame extends JFrame implements ActionListener, KeyListener 
         }
         return (email.equals("Harshita") && password.equals("345"));
     }
-
-
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            String emailText = userTextField.getText();
-            String pswdText = passwordField.getText();
-
-            boolean isValidUser = isValidUser(emailText, pswdText);
-            if (isValidUser) {
-                JOptionPane.showMessageDialog(this, "Login Successful");
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password");
-            }
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {}
 }
 
