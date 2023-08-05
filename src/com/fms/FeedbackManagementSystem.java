@@ -37,19 +37,19 @@ public class FeedbackManagementSystem extends JFrame {
             }
         });
     }
-
+    private MyLoginFrame loginFrame = null;
     private void createMenuBar() {
         menuBar = new JMenuBar();
         JMenu loginMenu = new JMenu("Login");
         menuBar.add(loginMenu);
         setJMenuBar(menuBar);
-
-        // Add MouseActionListener to the login menu
         loginMenu.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                MyLoginFrame loginFrame = new MyLoginFrame(menuBar);
-                loginFrame.setSize(500, 500);
+                if (loginFrame == null || !loginFrame.isVisible()) {
+                    loginFrame = new MyLoginFrame(menuBar);
+                    loginFrame.setSize(500, 500);
+                }
                 loginFrame.setVisible(true);
             }
         });
