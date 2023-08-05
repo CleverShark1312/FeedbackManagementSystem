@@ -6,7 +6,7 @@ public class HelloJDBC {
 
     static final String DB_URL = "jdbc:mysql://localhost/feedback_system";
     static final String USER = "root";
-    static final String PASS = "abc456";
+    static final String PASS = "sqlshark123";
 
     public HelloJDBC() {
 
