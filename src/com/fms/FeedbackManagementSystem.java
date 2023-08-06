@@ -38,6 +38,13 @@ public class FeedbackManagementSystem extends JFrame {
         });
     }
     private MyLoginFrame loginFrame = null;
+
+    private void centerLoginFrame(MyLoginFrame loginFrame) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width - loginFrame.getWidth()) / 2;
+        int centerY = (screenSize.height - loginFrame.getHeight()) / 2;
+        loginFrame.setLocation(centerX, centerY);
+    }
     private void createMenuBar() {
         menuBar = new JMenuBar();
         JMenu loginMenu = new JMenu("Login");
@@ -47,8 +54,9 @@ public class FeedbackManagementSystem extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (loginFrame == null || !loginFrame.isVisible()) {
-                    loginFrame = new MyLoginFrame(menuBar);
+                    loginFrame = new MyLoginFrame();
                     loginFrame.setSize(500, 500);
+                    centerLoginFrame(loginFrame);
                 }
                 loginFrame.setVisible(true);
             }

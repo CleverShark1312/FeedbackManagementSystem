@@ -16,12 +16,12 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 
     // JButton resetButton = new JButton("RESET");
     // JCheckBox showPassword = new JCheckBox("Show Password");
-    public MyLoginFrame(Component component) {
+    public MyLoginFrame() {
         setTitle("Login Page");
 //        setLayoutManager();
 //        setLocationAndSize();
 //        addComponentsToContainer();
-        setLocationRelativeTo(component);
+//        setLocationRelativeTo(component);
 
         userTextField = new JTextField();
         userTextField.setColumns(35);
