@@ -46,7 +46,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 10, 10);
-        panel.add(new JLabel("USERNAME:-"), gbc);
+        panel.add(new JLabel("EMAIL ID:-"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -140,17 +140,27 @@ public class MyLoginFrame extends JFrame implements ActionListener {
     }
 
     private boolean isValidUser(String email, String password) {
-        //TODO Replace hardcoded logic with actual DB check
-        String query = "SELECT * FROM users WHERE email = '" + email + "' AND user_password='" + password + "'";
-        System.out.println(query);
+        // TODO Replace hardcoded logic with actual DB check
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            String query = "SELECT * FROM users WHERE email = ? AND user_password = ?";
+           System.out.println(" Email  = "+ email + " " +"AND user_password = "+ password) ;
+
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            // Check if a user with the given email and password exists in the database
+            boolean isValidUser = rs.next();
+            rs.close();
+            pstmt.close();
+            conn.close();
+            return isValidUser;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return (email.equals("Harshita") && password.equals("345"));
     }
 }
 
