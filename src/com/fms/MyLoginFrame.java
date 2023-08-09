@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+//import java.util.*;
 
 import static com.fms.HelloJDBC.*;
 
@@ -80,8 +81,6 @@ public class MyLoginFrame extends JFrame implements ActionListener {
                 }
             }
         });
-
-
     }
 
     public void setLayoutManager() {
@@ -104,6 +103,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password");
+            userTextField.setText("");
+            passwordField.setText("");
         }
     }
 
