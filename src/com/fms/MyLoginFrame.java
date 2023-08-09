@@ -3,10 +3,7 @@ package com.fms;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.sql.*;
 
 import static com.fms.HelloJDBC.*;
@@ -83,6 +80,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
                 }
             }
         });
+
+
     }
 
     public void setLayoutManager() {
@@ -102,6 +101,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
         boolean isValidUser = isValidUser(emailText, pswdText);
         if (isValidUser) {
             JOptionPane.showMessageDialog(this, "Login Successful");
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password");
         }
@@ -117,6 +117,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             boolean isValidUser = isValidUser(emailText, pswdText);
             if (isValidUser) {
                 JOptionPane.showMessageDialog(this, "Login Successful");
+
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password");
             }
@@ -144,7 +145,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             String query = "SELECT * FROM users WHERE email = ? AND user_password = ?";
-           System.out.println(" Email  = "+ email + " " +"AND user_password = "+ password) ;
+            System.out.println(" Email  = " + email + " " + "AND user_password = " + password);
 
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, email);
