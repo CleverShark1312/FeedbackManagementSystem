@@ -17,6 +17,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
     JPasswordField passwordField;
     JButton loginButton = new JButton("LOGIN");
 
+    private HashMap<String,String> userData = new HashMap<>();
+
     // JButton resetButton = new JButton("RESET");
     // JCheckBox showPassword = new JCheckBox("Show Password");
     public MyLoginFrame() {
@@ -81,6 +83,9 @@ public class MyLoginFrame extends JFrame implements ActionListener {
                 }
             }
         });
+
+       // userData.put("gaurav@gmail.com","452");
+        displayData();
     }
 
     public void setLayoutManager() {
@@ -89,10 +94,15 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 
     public void addActionEvent() {
         loginButton.addActionListener(this);
+
         // showPassword.addActionListener(this);
         //  resetButton.addActionListener(this);
     }
-
+    private void displayData(){
+        for (Map.Entry<String,String> entry: userData.entrySet()){
+            System.out.println("Email: "+ entry.getKey()+" "+ "Password: "+ entry.getValue());
+        }
+    }
     private void performlogin() {
         String emailText = userTextField.getText();
         String pswdText = passwordField.getText();
@@ -107,7 +117,6 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             passwordField.setText("");
         }
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         //login functionality
@@ -125,6 +134,9 @@ public class MyLoginFrame extends JFrame implements ActionListener {
         } else if (e.getSource() == loginButton) {
             performlogin();
         }
+
+        //Add users functionality
+
         //show password functionality
 //        if (e.getSource() == showPassword) {
 //            if (showPassword.isSelected()) {
@@ -156,6 +168,9 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 
             // Check if a user with the given email and password exists in the database
             boolean isValidUser = rs.next();
+            if(isValidUser){
+                userData.put(email,password);
+            }
             rs.close();
             pstmt.close();
             conn.close();
