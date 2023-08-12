@@ -15,14 +15,15 @@ is_active boolean DEFAULT false NOT NULL
  
  CREATE TABLE user_feedbacks (
  id  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
- user_id INT NOT NULL,
+ user_id INT NOT NULL ,
  customer_name VARCHAR(20) UNIQUE NOT NULL,
  customer_email VARCHAR(50) UNIQUE NOT NULL,
  feedback_text varchar(250) NOT NULL,
- is_deleted boolean NOT NULL,
+ is_deleted boolean NOT NULL DEFAULT 0 ,
  created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
  updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
  FOREIGN KEY (user_id)REFERENCES users(id)
 );
 
 -- insert into users (user_name,email,user_password,is_active) values ('vicky','vishal@gmail.com','123456',true);
+--insert into user_feedbacks(user_id,customer_name, customer_email,feedback_text,is_deleted) values(1,'tom','tom@gmail.com','Defective piece',false);
