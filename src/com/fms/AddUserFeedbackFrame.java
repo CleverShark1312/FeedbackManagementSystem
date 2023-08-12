@@ -4,14 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+
+import static com.fms.HelloJDBC.*;
 
 public class AddUserFeedbackFrame extends JFrame {
-
     public AddUserFeedbackFrame() {
         setTitle("Collect Feedback");
         createUI();
     }
-
     private void createUI() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(10, 10));
@@ -65,18 +66,18 @@ public class AddUserFeedbackFrame extends JFrame {
         constraints.gridy = 3;
         constraints.fill = GridBagConstraints.NONE;
         constraints.weightx = 0.0;
-        inputPanel.add(new JLabel("Rating:"), constraints);
+        //inputPanel.add(new JLabel("Rating:"), constraints);
 
         constraints.gridx = 1;
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 1.0;
         JPanel ratingPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ButtonGroup ratingButtonGroup = new ButtonGroup();
-        for (int i = 1; i <= 5; i++) {
-            JRadioButton radioButton = new JRadioButton(i + " stars");
-            ratingButtonGroup.add(radioButton);
-            ratingPanel.add(radioButton);
-        }
+//        ButtonGroup ratingButtonGroup = new ButtonGroup();
+//        for (int i = 1; i <= 5; i++) {
+//            JRadioButton radioButton = new JRadioButton(i + " stars");
+//            ratingButtonGroup.add(radioButton);
+//            ratingPanel.add(radioButton);
+//        }
         inputPanel.add(ratingPanel, constraints);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -86,6 +87,15 @@ public class AddUserFeedbackFrame extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Get user input data
+                String customer_name = nameField.getText();
+                String customer_email = emailField.getText();
+                String customer_feedback = feedbackArea.getText();
+
+
+                //insert data into database
+                addFeedbackIntoDatabase(customer_name,customer_email,customer_feedback);
+
                 JOptionPane.showMessageDialog(AddUserFeedbackFrame.this,
                         "Feedback added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -93,5 +103,21 @@ public class AddUserFeedbackFrame extends JFrame {
         buttonPanel.add(submitButton);
 
         add(mainPanel);
+    }
+
+    private void addFeedbackIntoDatabase(String customer_name, String customer_email, String customer_feedback){
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            String insertQuery = "INSERT INTO user_feedbacks (user_id,customer_name, customer_email, feedback_text) VALUES (?,?, ?, ?)";
+            System.out.println("User_id: "+ MyLoginFrame.admin_id+ " Name: "+ customer_name + " email: " + customer_email + " feedback: " + customer_feedback);
+            PreparedStatement pstmt = connection.prepareStatement(insertQuery);
+            pstmt.setInt(1,MyLoginFrame.admin_id);
+            pstmt.setString(2,customer_name);
+            pstmt.setString(3,customer_email);
+            pstmt.setString(4,customer_feedback);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 }
