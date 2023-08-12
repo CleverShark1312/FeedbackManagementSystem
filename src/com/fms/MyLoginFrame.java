@@ -10,15 +10,13 @@ import java.util.*;
 import static com.fms.HelloJDBC.*;
 
 public class MyLoginFrame extends JFrame implements ActionListener {
+    public static int admin_id=-1;
     Container container = getContentPane();
     JLabel userLabel;
     JLabel passwordLabel;
     JTextField userTextField;
     JPasswordField passwordField;
     JButton loginButton = new JButton("LOGIN");
-
-    private HashMap<String,String> userData = new HashMap<>();
-
     // JButton resetButton = new JButton("RESET");
     // JCheckBox showPassword = new JCheckBox("Show Password");
     public MyLoginFrame() {
@@ -83,9 +81,6 @@ public class MyLoginFrame extends JFrame implements ActionListener {
                 }
             }
         });
-
-       // userData.put("gaurav@gmail.com","452");
-        displayData();
     }
 
     public void setLayoutManager() {
@@ -98,11 +93,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
         // showPassword.addActionListener(this);
         //  resetButton.addActionListener(this);
     }
-    private void displayData(){
-        for (Map.Entry<String,String> entry: userData.entrySet()){
-            System.out.println("Email: "+ entry.getKey()+" "+ "Password: "+ entry.getValue());
-        }
-    }
+
     private void performlogin() {
         String emailText = userTextField.getText();
         String pswdText = passwordField.getText();
@@ -117,6 +108,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             passwordField.setText("");
         }
     }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         //login functionality
@@ -153,7 +146,8 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //        }
     }
 
-    private boolean isValidUser(String email, String password) {
+
+    private  boolean isValidUser(String email, String password) {
         // TODO Replace hardcoded logic with actual DB check
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -161,16 +155,17 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             System.out.println(" Email  = " + email + " " + "AND user_password = " + password);
 
             PreparedStatement pstmt = conn.prepareStatement(query);
+
             pstmt.setString(1, email);
             pstmt.setString(2, password);
 
-            ResultSet rs = pstmt.executeQuery();
 
+
+            ResultSet rs = pstmt.executeQuery();
             // Check if a user with the given email and password exists in the database
             boolean isValidUser = rs.next();
-            if(isValidUser){
-                userData.put(email,password);
-            }
+            admin_id =rs.getInt("id");
+            System.out.println("The admin is: "+admin_id);
             rs.close();
             pstmt.close();
             conn.close();
@@ -179,5 +174,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             throw new RuntimeException(e);
         }
     }
+
+
 }
 
