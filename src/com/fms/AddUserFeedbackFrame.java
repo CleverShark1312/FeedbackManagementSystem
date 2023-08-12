@@ -5,10 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddUserFrame extends JFrame {
+public class AddUserFeedbackFrame extends JFrame {
 
-    public AddUserFrame(){
-        setTitle("Add User");
+    public AddUserFeedbackFrame() {
+        setTitle("Collect Feedback");
         createUI();
     }
 
@@ -86,7 +86,7 @@ public class AddUserFrame extends JFrame {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(AddUserFrame.this,
+                JOptionPane.showMessageDialog(AddUserFeedbackFrame.this,
                         "Feedback added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         });
