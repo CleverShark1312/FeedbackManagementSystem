@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static com.fms.HelloJDBC.*;
+
 public class FeedbackManagementSystem extends JFrame {
 
     private JMenuBar menuBar;
@@ -18,7 +20,6 @@ public class FeedbackManagementSystem extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -33,21 +34,18 @@ public class FeedbackManagementSystem extends JFrame {
             }
         });
     }
-
     private void centerLoginFrame(MyLoginFrame loginFrame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = (screenSize.width - loginFrame.getWidth()) / 2;
         int centerY = (screenSize.height - loginFrame.getHeight()) / 2;
         loginFrame.setLocation(centerX, centerY);
     }
-
     private void centreAddUserFrame(AddUserFeedbackFrame userFeedBackFrame) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int centerX = (screenSize.width - userFeedBackFrame.getWidth()) / 2;
         int centerY = (screenSize.height - userFeedBackFrame.getHeight()) / 2;
         userFeedBackFrame.setLocation(centerX, centerY);
     }
-
     private void createMenuBar() {
         menuBar = new JMenuBar();
         JMenu loginMenu = new JMenu("Login");
