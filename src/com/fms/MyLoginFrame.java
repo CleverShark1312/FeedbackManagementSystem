@@ -5,18 +5,18 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import java.util.*;
 
 import static com.fms.HelloJDBC.*;
 
 public class MyLoginFrame extends JFrame implements ActionListener {
-    public static int admin_id=-1;
+    public static int admin_id = -1;
     Container container = getContentPane();
     JLabel userLabel;
     JLabel passwordLabel;
     JTextField userTextField;
     JPasswordField passwordField;
     JButton loginButton = new JButton("LOGIN");
+
     // JButton resetButton = new JButton("RESET");
     // JCheckBox showPassword = new JCheckBox("Show Password");
     public MyLoginFrame() {
@@ -108,8 +108,6 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             passwordField.setText("");
         }
     }
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         //login functionality
@@ -145,9 +143,7 @@ public class MyLoginFrame extends JFrame implements ActionListener {
 //            //showPassword.setSelected(false);
 //        }
     }
-
-
-    private  boolean isValidUser(String email, String password) {
+    private boolean isValidUser(String email, String password) {
         // TODO Replace hardcoded logic with actual DB check
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -160,18 +156,22 @@ public class MyLoginFrame extends JFrame implements ActionListener {
             pstmt.setString(2, password);
 
 
-
             ResultSet rs = pstmt.executeQuery();
             // Check if a user with the given email and password exists in the database
             boolean isValidUser = rs.next();
-            admin_id =rs.getInt("id");
-            System.out.println("The admin is: "+admin_id);
+            System.out.println("rs.next passed");
+            admin_id = rs.getInt("id");
+            System.out.println("rs.getint passed");
+            System.out.println("The admin is: " + admin_id);
             rs.close();
             pstmt.close();
             conn.close();
             return isValidUser;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
         }
     }
 
